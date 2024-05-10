@@ -1,5 +1,5 @@
-# Ensure FindPython3 supports NumPy
-cmake_minimum_required(VERSION 3.14)
+# Ensure FindPython3 supports NumPy and CMP0094
+cmake_minimum_required(VERSION 3.15)
 
 # Create main project.
 project(pygotm VERSION 0.1.0 LANGUAGES Fortran C)
