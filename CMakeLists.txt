@@ -15,30 +15,12 @@ if (MSVC)
 endif()
 
 # Find target Python interpreter.
-set(Python_FIND_STRATEGY LOCATION)
-set(Python3_FIND_STRATEGY LOCATION)
 find_package(Python3 COMPONENTS Interpreter Development NumPy)
 
-set(CMAKE_Fortran_MODULE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/modules")
-include_directories("${CMAKE_CURRENT_BINARY_DIR}/modules")
-
-add_subdirectory(../../extern/pygsw pygsw EXCLUDE_FROM_ALL)
-
-set(FLEXOUT_USE_NetCDF OFF CACHE BOOL "Enable output in NetCDF format" FORCE)
-mark_as_advanced(FLEXOUT_USE_NetCDF)
-add_subdirectory(../../extern/gotm/extern/flexout flexout EXCLUDE_FROM_ALL)
-
-add_subdirectory(../../extern/gotm/src/util gotm/util EXCLUDE_FROM_ALL)
-add_subdirectory(../../extern/gotm/src/turbulence gotm/turbulence EXCLUDE_FROM_ALL)
-target_include_directories(turbulence PRIVATE ../../extern/gotm/include)
-target_include_directories(util PRIVATE ../../extern/gotm/include)
-if(${CMAKE_Fortran_COMPILER_ID} STREQUAL "GNU")
-  target_compile_options(turbulence PRIVATE -ffree-line-length-none)
-  target_compile_options(util PRIVATE -ffree-line-length-none)
-endif()
+add_subdirectory(extern/gotm gotm EXCLUDE_FROM_ALL)
 
 add_library(cgotm
-  pygotm_wrapper.F90)
+  src/pygotm_wrapper.F90)
 target_link_libraries(cgotm turbulence util yaml)
 
 add_custom_command(OUTPUT _pygotm.c
