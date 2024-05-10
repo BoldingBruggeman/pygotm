@@ -17,6 +17,7 @@ endif()
 # Find target Python interpreter.
 find_package(Python3 COMPONENTS Interpreter Development NumPy)
 
+set(GOTM_USE_NetCDF OFF CACHE BOOL "Enable output in NetCDF format" FORCE)
 add_subdirectory(extern/gotm gotm EXCLUDE_FROM_ALL)
 
 add_library(cgotm
