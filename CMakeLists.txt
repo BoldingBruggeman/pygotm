@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 # Create main project.
-project(pygotm VERSION 0.1.0 LANGUAGES Fortran C)
+project(pygotm VERSION 0.1.1 LANGUAGES Fortran C)
 
 # Specify position-independent code since we will build a shared library.
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
