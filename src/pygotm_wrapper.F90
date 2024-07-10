@@ -38,7 +38,7 @@ contains
       call c_f_pointer(c_loc(pnml_file), nml_file)
       call c_f_pointer(c_loc(pyaml_file), yaml_file)
 
-      call finalize()
+      call finalize2()
       allocate(store)
       pathlen = index(yaml_file, C_NULL_CHAR) - 1
       if (pathlen > 0) then
@@ -63,7 +63,9 @@ contains
       flush(unit=6)
    end subroutine
 
-   subroutine finalize() bind(c)
+   ! Note: finalize was renamend to finalize2 to prevent gfortran confusing
+   ! it with store%finalize
+   subroutine finalize2() bind(c)
       if (associated(store)) then
          call clean_turbulence()
          call clean_tridiagonal()
