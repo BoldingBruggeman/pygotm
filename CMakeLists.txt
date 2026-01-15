@@ -1,5 +1,6 @@
-# Ensure FindPython3 supports NumPy and CMP0094
-cmake_minimum_required(VERSION 3.15)
+# 3.15 to ensure FindPython3 supports NumPy and CMP0094
+# 3.17 to ensure FindPython3 supports WITH_SOABI
+cmake_minimum_required(VERSION 3.17)
 
 # Create main project.
 project(pygotm VERSION 0.1.5 LANGUAGES Fortran C)
@@ -31,7 +32,7 @@ add_custom_command(OUTPUT _pygotm.c
   VERBATIM
 )
 
-Python3_add_library(_pygotm MODULE
+Python3_add_library(_pygotm MODULE WITH_SOABI
   "${CMAKE_CURRENT_BINARY_DIR}/_pygotm.c")
 target_link_libraries(_pygotm PRIVATE cgotm Python3::NumPy)
 
